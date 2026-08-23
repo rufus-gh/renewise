@@ -1,0 +1,63 @@
+/* ──────────────────────────────────────────────────────────────
+   Renewise — design tokens
+   A single dark world. Graphite grounds, hairline structure,
+   one signal colour that only ever means "this is the money".
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Grounds — tonal shifts between sections, never pure black */
+  --g-void: #060807;
+  --g-base: #0a0c0b;
+  --g-rise: #0f1211;
+  --g-lift: #141817;
+  --g-panel: #181d1b;
+
+  /* Ink */
+  --ink: #eef1ef;
+  --ink-2: #a4b0ab;
+  --ink-3: #6d7a75;
+  --ink-4: #47524e;
+
+  /* Structure */
+  --line: rgba(238, 241, 239, 0.09);
+  --line-2: rgba(238, 241, 239, 0.055);
+  --line-3: rgba(238, 241, 239, 0.16);
+
+  /* Signal — savings, live state, the recommended path. Nothing else. */
+  --sig: #29d67f;
+  /* The same signal at field scale — the bright accent reads as mint
+     when it covers a whole panel, so the CTA ground is a step deeper. */
+  --sig-field: #1fbe6b;
+  --sig-dim: #1e9c5d;
+  --sig-wash: rgba(41, 214, 127, 0.09);
+  --sig-line: rgba(41, 214, 127, 0.34);
+
+  /* Warning — only the price cliff */
+  --warn: #e2705c;
+  --warn-wash: rgba(226, 112, 92, 0.1);
+
+  /* Type */
+  --display: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --body: 'Instrument Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Rhythm */
+  --gut: clamp(20px, 4.4vw, 72px);
+  --max: 1560px;
+
+  /* Motion personalities */
+  --e-ui: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --e-type: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-mass: cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+/* The site is a deliberately single-world dark design. Light-preference
+   viewers get the same world — but we lift the ground slightly so it
+   doesn't read as a broken theme on a bright display. */
+@media (prefers-color-scheme: light) {
+  :root {
+    --g-void: #08100c;
+    --g-base: #0b1310;
+    --line: rgba(238, 241, 239, 0.11);
+  }
+}
