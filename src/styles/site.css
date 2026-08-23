@@ -6,7 +6,9 @@
 .cursor {
   position: fixed;
   inset: 0;
-  z-index: 300;
+  /* Above the preloader too — the native cursor is already hidden by
+     then, so ours has to be the one thing nothing can cover. */
+  z-index: 500;
   pointer-events: none;
 }
 .cursor__dot,
@@ -15,6 +17,9 @@
   top: 0;
   left: 0;
   will-change: transform;
+  /* Revealed on the first pointer move, once it has a real position. */
+  opacity: 0;
+  visibility: hidden;
 }
 .cursor__dot {
   width: 5px;
