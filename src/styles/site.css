@@ -60,7 +60,7 @@
 .mbtn--line:hover,
 .mbtn--line:focus-visible {
   color: var(--g-void);
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
 }
 .mbtn--bare {
   padding: 8px 0;
@@ -134,7 +134,7 @@
 }
 .pre__ready {
   opacity: 0;
-  color: var(--sig);
+  color: var(--sig-ink);
   letter-spacing: 0.2em;
 }
 
@@ -186,7 +186,7 @@
   transition: transform 0.4s var(--e-ui);
 }
 .nav__link span:last-child {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .nav__link:hover span,
 .nav__link:focus-visible span {
@@ -223,7 +223,7 @@
 .nav__dash-btn {
   background: var(--sig-wash);
   border: 1px solid var(--sig-line);
-  color: var(--sig);
+  color: var(--sig-ink);
   border-radius: 4px;
   padding: 8px 14px;
   font-size: 11px;
@@ -344,7 +344,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--sig);
+  color: var(--sig-ink);
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -389,7 +389,7 @@
   padding: 10px;
   background: var(--sig-wash);
   border: 1px dashed var(--sig-line);
-  color: var(--sig);
+  color: var(--sig-ink);
   border-radius: 4px;
   font-size: 12px;
   cursor: pointer;
@@ -425,7 +425,7 @@
   transition: border-color 0.2s var(--e-ui);
 }
 .login-modal__field input:focus {
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
 }
 .login-modal__err {
   font-size: 12px;
@@ -447,7 +447,7 @@
   margin-top: 4px;
 }
 .login-modal__hint code {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .nav__burger {
   display: none;
@@ -578,7 +578,7 @@
 }
 .thesis__hold {
   display: inline-block;
-  color: var(--sig);
+  color: var(--sig-ink);
   will-change: transform;
 }
 .thesis__tail {
@@ -681,7 +681,7 @@
   will-change: transform;
 }
 .sig__word--b {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .sig__chart {
   position: relative;
@@ -734,7 +734,7 @@
   top: 44%;
 }
 .sig__caption--mark b {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .sig__verdict {
   display: grid;
@@ -774,7 +774,7 @@
   background: var(--g-base);
 }
 .proof__i {
-  color: var(--sig);
+  color: var(--sig-ink);
   font-weight: 700;
 }
 .proof__v {
@@ -913,7 +913,7 @@
   border-top: 0;
 }
 .caps__i {
-  color: var(--sig);
+  color: var(--sig-ink);
   font-weight: 700;
 }
 .caps__t {
@@ -1054,7 +1054,7 @@
   transition: color 0.25s var(--e-ui);
 }
 .foot__col a:hover {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .foot__base {
   display: flex;
@@ -1124,7 +1124,7 @@
     border-bottom: 1px solid var(--line-2);
   }
   .nav__sheet button {
-    color: var(--sig);
+    color: var(--sig-ink);
     border-bottom: 0;
   }
 
