@@ -39,7 +39,7 @@
 .flow__progressfill {
   display: block;
   height: 100%;
-  background: var(--sig);
+  background: var(--g-void);
   transform-origin: left;
   transition: transform 0.55s var(--e-ui);
 }
@@ -130,7 +130,7 @@
   color: var(--ink-4);
 }
 .fq__label span:first-child {
-  color: var(--sig);
+  color: var(--sig-ink);
   font-weight: 700;
 }
 .fq__h {
@@ -168,7 +168,7 @@
   transform: translateX(4px);
 }
 .choice[data-selected] {
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
   background: var(--sig-wash);
 }
 .choice__body {
@@ -208,8 +208,8 @@
   transition: color 0.25s var(--e-ui), border-color 0.25s var(--e-ui);
 }
 .choice[data-selected] .choice__tick {
-  color: var(--sig);
-  border-color: var(--sig);
+  color: var(--sig-ink);
+  border-color: var(--sig-ink);
 }
 
 /* ── Toggle ──────────────────────────────────────────────────── */
@@ -253,7 +253,7 @@
 }
 .tgl__b[data-on] {
   background: var(--sig);
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
   color: var(--g-void);
 }
 
@@ -270,8 +270,8 @@
   color: var(--ink);
 }
 .chip[data-on] {
-  border-color: var(--sig);
-  color: var(--sig);
+  border-color: var(--sig-ink);
+  color: var(--sig-ink);
   background: var(--sig-wash);
 }
 
@@ -302,7 +302,7 @@
   color: var(--ink-4);
 }
 .addr__field:focus-within {
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
 }
 .addr__help {
   color: var(--ink-4);
@@ -336,7 +336,7 @@
   margin-left: 8px;
 }
 .addr__zone {
-  color: var(--sig);
+  color: var(--sig-ink);
   letter-spacing: 0.1em;
   text-align: right;
 }
@@ -382,7 +382,7 @@
   cursor: pointer;
 }
 .prov__more summary::marker {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .prov__grid--rest {
   margin-top: 8px;
@@ -406,7 +406,7 @@
   transition: border-color 0.2s var(--e-ui);
 }
 .prov__custom-in:focus {
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
 }
 .prov__years {
   display: grid;
@@ -455,8 +455,8 @@
 }
 .prov__chip.is-active {
   background: var(--sig-wash);
-  border-color: var(--sig);
-  color: var(--sig);
+  border-color: var(--sig-ink);
+  color: var(--sig-ink);
   font-weight: 600;
 }
 .prov__yrow {
@@ -469,7 +469,7 @@
   font-weight: 700;
   font-size: 18px;
   letter-spacing: -0.02em;
-  color: var(--sig);
+  color: var(--sig-ink);
   white-space: nowrap;
   min-width: 9ch;
 }
@@ -553,7 +553,7 @@
 }
 .assets__preset.is-active {
   background: var(--sig-wash);
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
 }
 .assets__preset-val {
   font-family: var(--display);
@@ -562,7 +562,7 @@
   color: var(--ink);
 }
 .assets__preset.is-active .assets__preset-val {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .assets__preset-sub {
   font-size: 10px;
@@ -580,7 +580,7 @@
   font-weight: 700;
   font-size: 21px;
   letter-spacing: -0.02em;
-  color: var(--sig);
+  color: var(--sig-ink);
   min-width: 6ch;
 }
 .prio__chips {
@@ -603,7 +603,7 @@
   max-width: 760px;
 }
 .calc__label {
-  color: var(--sig);
+  color: var(--sig-ink);
   letter-spacing: 0.24em;
 }
 .calc__count {
@@ -679,12 +679,12 @@
 }
 .calc__bestv {
   font-size: clamp(30px, 4.4vw, 54px);
-  color: var(--sig);
+  color: var(--sig-ink);
   line-height: 1;
 }
 .calc__done {
   opacity: 0;
-  color: var(--sig);
+  color: var(--sig-ink);
   letter-spacing: 0.2em;
 }
 
@@ -728,8 +728,8 @@
   transition: color 0.25s var(--e-ui), border-color 0.25s var(--e-ui);
 }
 .res__assume:hover {
-  color: var(--sig);
-  border-color: var(--sig);
+  color: var(--sig-ink);
+  border-color: var(--sig-ink);
 }
 .res__assumptions {
   display: grid;
@@ -760,14 +760,14 @@
   background: var(--g-rise);
 }
 .res__card[data-rec] {
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
   background: linear-gradient(180deg, var(--sig-wash), transparent 46%), var(--g-lift);
 }
 .res__kind {
   color: var(--ink-4);
 }
 .res__card[data-rec] .res__kind {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .res__plan {
   display: grid;
@@ -795,7 +795,7 @@
 .res__savev {
   font-size: clamp(38px, 4.4vw, 58px);
   line-height: 0.92;
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .res__saveu {
   color: var(--ink-4);
@@ -905,7 +905,7 @@
   border-bottom: 1px solid var(--line-2);
 }
 .pmodal__ret {
-  color: var(--sig);
+  color: var(--sig-ink);
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -970,7 +970,7 @@
   line-height: 1.1;
 }
 .pmodal__cost-val--sig {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .pmodal__cost-sub {
   font-size: 11px;
@@ -1057,7 +1057,7 @@
   transition: color 0.25s var(--e-ui);
 }
 .res__toggle:hover {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .res__toggleline {
   flex: 1;
@@ -1111,12 +1111,12 @@
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--sig);
+  color: var(--sig-ink);
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s var(--e-ui);
 }
 .res__pick:hover {
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
 }
 
 /* ── Consent ─────────────────────────────────────────────────── */
@@ -1149,7 +1149,7 @@
 }
 .cons__price .display {
   font-size: clamp(30px, 3.6vw, 46px);
-  color: var(--sig);
+  color: var(--sig-ink);
   line-height: 1;
 }
 .cons__price .mono {
@@ -1194,7 +1194,7 @@
   color: var(--ink);
 }
 .cons__hi {
-  color: var(--sig) !important;
+  color: var(--sig-ink) !important;
   font-weight: 600;
 }
 .cons__warn {
@@ -1248,7 +1248,7 @@
 }
 .cons__check input:checked {
   background: var(--sig);
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
 }
 .cons__check input:checked::after {
   transform: scale(1);
@@ -1290,14 +1290,14 @@
   border-color: var(--line-3);
 }
 .mode__card[data-on] {
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
   background: linear-gradient(180deg, var(--sig-wash), transparent 40%), var(--g-lift);
 }
 .mode__tag {
   color: var(--ink-4);
 }
 .mode__card[data-on] .mode__tag {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .mode__t {
   font-size: clamp(24px, 2.8vw, 38px);
@@ -1365,7 +1365,7 @@
 }
 .dash__sub {
   margin-top: 8px;
-  color: var(--sig);
+  color: var(--sig-ink);
   letter-spacing: 0.1em;
 }
 .dash__exit {
@@ -1378,8 +1378,8 @@
   padding-bottom: 4px;
 }
 .dash__exit:hover {
-  color: var(--sig);
-  border-color: var(--sig);
+  color: var(--sig-ink);
+  border-color: var(--sig-ink);
 }
 
 .dash__grid {
@@ -1457,13 +1457,13 @@
 }
 .dash__steps li[data-done]::before {
   background: var(--sig);
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
 }
 .dash__steps li[data-active] {
   color: var(--ink);
 }
 .dash__steps li[data-active]::before {
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
   box-shadow: 0 0 0 3px var(--sig-wash);
 }
 
@@ -1529,7 +1529,7 @@
   transition: all 0.26s var(--e-ui);
 }
 .dash__mode[data-on] {
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
   background: var(--sig-wash);
 }
 .dash__modet {
@@ -1546,7 +1546,7 @@
 
 .dash__savev {
   font-size: clamp(40px, 5vw, 62px);
-  color: var(--sig);
+  color: var(--sig-ink);
   line-height: 0.92;
 }
 .dash__savel {
@@ -1567,8 +1567,8 @@
   transition: all 0.24s var(--e-ui);
 }
 .dash__changes button:hover {
-  border-color: var(--sig);
-  color: var(--sig);
+  border-color: var(--sig-ink);
+  color: var(--sig-ink);
 }
 
 .dash__price {
@@ -1602,7 +1602,7 @@
   outline: none;
 }
 .dash__promoin:focus {
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
 }
 .dash__promo button {
   padding: 12px 20px;
@@ -1616,11 +1616,11 @@
 }
 .dash__promo button:hover {
   background: var(--sig);
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
   color: var(--g-void);
 }
 .dash__promook {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .dash__promobad {
   color: var(--warn);
@@ -1706,7 +1706,7 @@
   transition: color 0.2s var(--e-ui);
 }
 .flow__mark:hover {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .flow__prog {
   flex: 1;
@@ -1778,13 +1778,13 @@
   transition: color 0.2s var(--e-ui);
 }
 .usage__custom-toggle:hover {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .usage__badge {
   display: inline-flex;
   align-items: center;
   background: var(--sig-wash);
-  color: var(--sig);
+  color: var(--sig-ink);
   border: 1px solid var(--sig-line);
   border-radius: 20px;
   padding: 2px 10px;
@@ -1823,7 +1823,7 @@
 }
 .usage__app-card.is-selected {
   background: var(--sig-wash);
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
 }
 .usage__app-head {
   display: flex;
@@ -1845,7 +1845,7 @@
 }
 .usage__app-check.is-on {
   background: var(--sig);
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
 }
 .usage__app-check.is-on::after {
   content: '';
@@ -1871,7 +1871,7 @@
 .usage__app-kwh {
   margin-top: 4px;
   font-size: 11px;
-  color: var(--sig);
+  color: var(--sig-ink);
   letter-spacing: 0.06em;
 }
 
@@ -1900,7 +1900,7 @@
   font-weight: 700;
   font-size: 16px;
   letter-spacing: -0.01em;
-  color: var(--sig);
+  color: var(--sig-ink);
   margin: 0 0 4px;
 }
 .usage__ai-desc {
@@ -1929,7 +1929,7 @@
   color: var(--ink-4);
 }
 .usage__ai-input:focus {
-  border-color: var(--sig);
+  border-color: var(--sig-ink);
 }
 .usage__ai-btn {
   padding: 12px 20px;
@@ -1954,7 +1954,7 @@
 }
 .usage__ai-status {
   font-size: 11px;
-  color: var(--sig);
+  color: var(--sig-ink);
   letter-spacing: 0.1em;
   background: var(--sig-wash);
   border: 1px solid var(--sig-line);
@@ -1984,7 +1984,7 @@
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .res__reveal-dot {
   width: 6px;
@@ -2006,7 +2006,7 @@
   color: var(--ink);
 }
 .res__reveal-amount {
-  color: var(--sig);
+  color: var(--sig-ink);
   font-variant-numeric: tabular-nums;
 }
 .res__reveal-per {
@@ -2085,7 +2085,7 @@
   color: var(--ink);
 }
 .pmodal__tou-rate--sig {
-  color: var(--sig);
+  color: var(--sig-ink);
 }
 .pmodal__tou-hours {
   font-size: 13.5px;
