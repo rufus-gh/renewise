@@ -1,11 +1,17 @@
 /* ──────────────────────────────────────────────────────────────
-   Renewise — Design Tokens (Pitch Edition 2026)
+   Renewise — Design Tokens (Pitch Edition 2026, Light Base)
    Color palette:
      --color-1: #ABD1B0  Sage green  (secondary accents, borders)
      --color-2: #F5F7F5  Off-white   (page canvas, light cards)
-     --color-3: #2B4930  Forest      (primary text, deep surfaces)
+     --color-3: #2B4930  Forest      (primary text, buttons, outlines)
      --color-4: #B7E0BA  Pastel mint (highlights, hover states)
      --color-5: #64C7A9  Teal        (primary CTA, signals, links)
+
+   Theme direction: the light colors (off-white / sage / mint) now
+   form the site's ground scale — page background, cards, panels.
+   Forest (#2B4930) is reserved as the one dark token: button text
+   on accent surfaces, outlines/hairlines, and primary body text.
+   Teal remains the vivid signal color for CTAs, links, and highlights.
    ────────────────────────────────────────────────────────────── */
 
 :root {
@@ -16,21 +22,25 @@
   --color-4: #B7E0BA;
   --color-5: #64C7A9;
 
-  /* Ground surfaces — deep forest greens */
-  --g-void: #1A2E1E;
-  --g-base: #2B4930;
-  --g-rise: #243F28;
-  --g-lift: #325737;
-  --g-panel: #3A6140;
-  --g-plate: #1E3422;
+  /* Ground surfaces — light, off-white base with a subtle sage/mint
+     lift as elements sit "higher" (cards, panels, dropdowns).
+     --g-void stays the one dark value, used for button text on
+     accent fills, hover states, and small high-contrast details —
+     never as a full section background. */
+  --g-void: #2B4930;
+  --g-base: #F5F7F5;
+  --g-rise: #EFF5F0;
+  --g-lift: #E6F0E8;
+  --g-panel: #DCEBDE;
+  --g-plate: #D0E3D3;
 
-  /* Ink — readable on forest-green backgrounds */
-  --ink:   #F5F7F5;
-  --ink-2: #C8E0CA;
-  --ink-3: #9ABFA0;
-  --ink-4: #6A9270;
+  /* Ink — dark forest-based text, readable on the light ground scale */
+  --ink:   #24392A;
+  --ink-2: #4A6B4F;
+  --ink-3: #6C8F70;
+  --ink-4: #8FAE92;
 
-  /* Signal / CTA — teal (#64C7A9) */
+  /* Signal / CTA — teal (#64C7A9), unchanged: reads well on light or dark */
   --sig:       #64C7A9;
   --sig-field: #64C7A9;
   --sig-dim:   #4EAE92;
@@ -42,10 +52,12 @@
   --accent-mint: #B7E0BA;
   --accent-teal: #64C7A9;
 
-  /* Structural lines */
-  --line:   rgba(171, 209, 176, 0.16);
-  --line-2: rgba(171, 209, 176, 0.09);
-  --line-3: rgba(171, 209, 176, 0.32);
+  /* Structural lines — forest-based now, so hairlines/outlines are
+     actually visible against the light ground (this is the "leave
+     the darker color for outlines" part) */
+  --line:   rgba(43, 73, 48, 0.14);
+  --line-2: rgba(43, 73, 48, 0.08);
+  --line-3: rgba(43, 73, 48, 0.28);
 
   /* Warning */
   --warn:      #E8836E;
