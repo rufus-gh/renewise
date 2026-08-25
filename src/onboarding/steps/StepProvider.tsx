@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { RETAILERS } from '../../data/market'
 import { StepFrame } from '../ui'
 
@@ -10,10 +11,6 @@ const FEATURED = [
   'momentum',
   'simply',
   'powershop',
-  'globird',
-  'engie',
-  'ovo',
-  'tango',
 ]
 
 interface Props {
@@ -23,24 +20,42 @@ interface Props {
   onYears: (y: number) => void
 }
 
+const DURATION_PRESETS = [
+  { label: 'Under 1 yr', years: 0 },
+  { label: '1–2 yrs', years: 2 },
+  { label: '3–4 yrs', years: 3 },
+  { label: '5+ yrs', years: 5 },
+]
+
 /**
- * Knowing the incumbent is what makes "projected savings" an honest
- * number — we price their actual expired-benefit rate rather than
- * comparing against the default offer.
+ * Clean, compact provider picker with prominent tenure selector
+ * and "Other" retailer support.
  */
 export function StepProvider({ value, years, onPick, onYears }: Props) {
+  const [customName, setCustomName] = useState('')
+  const [showOtherInput, setShowOtherInput] = useState(value === 'other')
+
   const featured = FEATURED.map((id) => RETAILERS.find((r) => r.id === id)!).filter(Boolean)
   const rest = RETAILERS.filter((r) => !FEATURED.includes(r.id))
+
+  const isOther = value === 'other' || (value !== null && !RETAILERS.some((r) => r.id === value))
+
+  const handlePickOther = () => {
+    setShowOtherInput(true)
+    onPick('other')
+  }
+
+  const penaltyPercent = Math.min(years, 5) * 2
 
   return (
     <StepFrame
       index="02"
       label="Who bills you now"
       heading={['Who are you', 'with today?']}
-      hint="We price their current rates for your address, so the saving is measured against what you actually pay — not against a headline."
+      hint="We price their rates for your address so savings are measured against what you actually pay."
     >
       <div className="prov">
-        <ul className="prov__grid">
+        <ul className="prov__grid prov__grid--compact">
           {featured.map((r) => (
             <li key={r.id}>
               <button
@@ -48,17 +63,48 @@ export function StepProvider({ value, years, onPick, onYears }: Props) {
                 className="prov__b"
                 data-on={value === r.id || undefined}
                 aria-pressed={value === r.id}
-                onClick={() => onPick(r.id)}
+                onClick={() => {
+                  setShowOtherInput(false)
+                  onPick(r.id)
+                }}
                 data-cursor="explore"
               >
                 {r.name}
               </button>
             </li>
           ))}
+          <li>
+            <button
+              type="button"
+              className="prov__b prov__b--other"
+              data-on={isOther || undefined}
+              aria-pressed={isOther}
+              onClick={handlePickOther}
+              data-cursor="explore"
+            >
+              Other / Not Listed
+            </button>
+          </li>
         </ul>
 
+        {showOtherInput && (
+          <div className="prov__custom">
+            <input
+              type="text"
+              className="prov__custom-in"
+              placeholder="Enter provider name (optional)"
+              value={customName}
+              onChange={(e) => {
+                setCustomName(e.target.value)
+                onPick(e.target.value.trim() ? `custom:${e.target.value}` : 'other')
+              }}
+              autoFocus
+            />
+          </div>
+        )}
+
         <details className="prov__more">
-          <summary data-cursor="explore">Someone else</summary>
+          <summary data-cursor="explore">More providers ({rest.length})</summary>
           <ul className="prov__grid prov__grid--rest">
             {rest.map((r) => (
               <li key={r.id}>
@@ -67,7 +113,10 @@ export function StepProvider({ value, years, onPick, onYears }: Props) {
                   className="prov__b"
                   data-on={value === r.id || undefined}
                   aria-pressed={value === r.id}
-                  onClick={() => onPick(r.id)}
+                  onClick={() => {
+                    setShowOtherInput(false)
+                    onPick(r.id)
+                  }}
                   data-cursor="explore"
                 >
                   {r.name}
@@ -77,10 +126,31 @@ export function StepProvider({ value, years, onPick, onYears }: Props) {
           </ul>
         </details>
 
-        <div className="prov__years">
-          <label htmlFor="years" className="prov__yl mono">
-            Roughly how long with them
-          </label>
+        {/* Tenure Section - Prominent & Visible Above the Fold */}
+        <div className="prov__years prov__years--prominent">
+          <div className="prov__yhead">
+            <label htmlFor="years" className="prov__yl mono">
+              How long have you been on this plan?
+            </label>
+            <output className="prov__yv num">
+              {years === 0 ? 'Under 1 year' : years === 8 ? '8+ years' : `${years} years`}
+            </output>
+          </div>
+
+          <div className="prov__chips">
+            {DURATION_PRESETS.map((p) => (
+              <button
+                key={p.label}
+                type="button"
+                className={`prov__chip mono ${years === p.years ? 'is-active' : ''}`}
+                onClick={() => onYears(p.years)}
+                data-cursor="explore"
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+
           <div className="prov__yrow">
             <input
               id="years"
@@ -92,13 +162,12 @@ export function StepProvider({ value, years, onPick, onYears }: Props) {
               onChange={(e) => onYears(Number(e.target.value))}
               className="slider"
             />
-            <output className="prov__yv num">
-              {years === 0 ? 'Under a year' : years === 8 ? '8+ years' : `${years} years`}
-            </output>
           </div>
+
           <p className="prov__note">
-            Rates drift upward the longer you stay. Every year on the same plan
-            adds roughly 2% to what you pay, and none of it is announced.
+            {penaltyPercent > 0
+              ? `Estimated +${penaltyPercent}% loyalty penalty vs new customer rates.`
+              : 'Newer contracts are usually on initial discounted rates.'}
           </p>
         </div>
       </div>

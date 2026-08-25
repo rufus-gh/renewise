@@ -28,6 +28,8 @@ interface State {
   years: number
   archetype: Archetype | null
   controlledLoad: boolean
+  appliances: string[]
+  aiPrompt: string
   solarKw: number
   battery: boolean
   priority: Priority | null
@@ -42,6 +44,8 @@ const INITIAL: State = {
   years: 3,
   archetype: null,
   controlledLoad: false,
+  appliances: [],
+  aiPrompt: '',
   solarKw: 0,
   battery: false,
   priority: null,
@@ -51,12 +55,28 @@ const INITIAL: State = {
 }
 
 interface Props {
+  initialStep?: number
+  initialState?: Partial<State>
   onExit: () => void
 }
 
-export function Onboarding({ onExit }: Props) {
-  const [step, setStep] = useState(0)
-  const [s, setS] = useState<State>(INITIAL)
+export function Onboarding({ initialStep = 0, initialState, onExit }: Props) {
+  const [step, setStep] = useState(initialStep)
+  const [s, setS] = useState<State>(() => ({
+    ...INITIAL,
+    ...(initialStep === 9
+      ? {
+          locality: { suburb: 'Surry Hills', postcode: '2010', zone: 'ausgrid' },
+          retailerId: 'agl',
+          years: 3,
+          archetype: 'family',
+          solarKw: 6.6,
+          battery: false,
+          mode: 'auto',
+        }
+      : {}),
+    ...initialState,
+  }))
   const stage = useRef<HTMLDivElement>(null)
   const root = useRef<HTMLDivElement>(null)
 
@@ -123,12 +143,17 @@ export function Onboarding({ onExit }: Props) {
 
   const zone = s.locality?.zone ?? 'ausgrid'
   const pool = useMemo(() => plansForZone(zone), [zone])
+  const extraApplianceKwh = useMemo(() => {
+    let extra = s.appliances.length * 900
+    if (s.aiPrompt) extra += 800
+    return extra
+  }, [s.appliances, s.aiPrompt])
 
   const profile: Profile = useMemo(
     () => ({
       zone,
       archetype: s.archetype ?? 'family',
-      annualKwh: ZONES[zone].benchmark[s.archetype ?? 'family'],
+      annualKwh: ZONES[zone].benchmark[s.archetype ?? 'family'] + extraApplianceKwh,
       solarKw: s.solarKw,
       battery: s.battery,
       controlledLoad: s.controlledLoad,
@@ -137,13 +162,17 @@ export function Onboarding({ onExit }: Props) {
       currentRetailerId: s.retailerId,
       yearsWithRetailer: s.years,
     }),
-    [zone, s.archetype, s.solarKw, s.battery, s.controlledLoad, s.priority, s.values, s.retailerId, s.years],
+    [zone, s.archetype, extraApplianceKwh, s.solarKw, s.battery, s.controlledLoad, s.priority, s.values, s.retailerId, s.years],
   )
 
   const ranking = useMemo(() => rank(profile, pool), [profile, pool])
 
   const chosen = useMemo(
-    () => ranking.quotes.find((q) => q.plan.id === s.chosenPlanId) ?? null,
+    () =>
+      ranking.quotes.find((q) => q.plan.id === s.chosenPlanId) ??
+      ranking.options.find((o) => o.kind === 'recommended')?.quote ??
+      ranking.quotes[0] ??
+      null,
     [ranking, s.chosenPlanId],
   )
 
@@ -163,46 +192,54 @@ export function Onboarding({ onExit }: Props) {
       case 3:
         return true
       case 4:
-        return !!s.priority
+        return true
       default:
-        return false
+        return true
     }
   })()
 
   const showChrome = step <= 4
-  const progress = Math.min(step / QUESTION_STEPS, 1)
 
   return (
-    <div ref={root} className="flow" role="dialog" aria-modal="true" aria-label="Find my plan">
-      <div className="flow__bar shell">
-        <span className="flow__mark">
+    <div ref={root} className="flow" role="dialog" aria-modal="true" aria-label="Find your plan">
+      <header className="flow__head shell">
+        <button
+          type="button"
+          className="flow__mark"
+          onClick={onExit}
+          aria-label="Renewise, close and return"
+          data-cursor="explore"
+        >
           <Mark size={14} />
           <span>Renewise</span>
-        </span>
-
-        {showChrome && (
-          <span className="flow__progress" aria-hidden="true">
-            <span
-              className="flow__progressfill"
-              style={{ transform: `scaleX(${progress})` }}
-            />
-          </span>
-        )}
-
-        <span className="flow__count mono">
-          {showChrome ? `${String(step + 1).padStart(2, '0')} / 0${QUESTION_STEPS}` : ''}
-        </span>
-
-        <button type="button" className="flow__close" onClick={onExit} data-cursor="explore">
-          <span className="sr">Close</span>
-          <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
-            <path d="M3 3 13 13M13 3 3 13" stroke="currentColor" strokeWidth="1.4" />
-          </svg>
         </button>
-      </div>
+
+        <div className="flow__prog" aria-hidden="true">
+          <span className="flow__prog-label mono">
+            {step < QUESTION_STEPS ? `Step 0${step + 1} / 0${QUESTION_STEPS}` : 'Comparison'}
+          </span>
+          <div className="flow__bar">
+            <span
+              className="flow__barfill"
+              style={{
+                width: `${Math.min(((step + 1) / QUESTION_STEPS) * 100, 100)}%`,
+              }}
+            />
+          </div>
+        </div>
+
+        <button
+          type="button"
+          className="flow__close mono"
+          onClick={onExit}
+          data-cursor="explore"
+        >
+          Close [Esc]
+        </button>
+      </header>
 
       <div ref={stage} className="flow__stage">
-        <div className="shell flow__inner">
+        <div className="flow__content shell">
           {step === 0 && (
             <StepAddress
               value={s.locality}
@@ -227,8 +264,19 @@ export function Onboarding({ onExit }: Props) {
               zone={zone}
               value={s.archetype}
               controlledLoad={s.controlledLoad}
+              appliances={s.appliances}
+              aiPrompt={s.aiPrompt}
               onPick={(a) => set('archetype', a)}
               onControlledLoad={(v) => set('controlledLoad', v)}
+              onToggleAppliance={(id) =>
+                setS((prev) => ({
+                  ...prev,
+                  appliances: prev.appliances.includes(id)
+                    ? prev.appliances.filter((item) => item !== id)
+                    : [...prev.appliances, id],
+                }))
+              }
+              onAiPrompt={(prompt) => set('aiPrompt', prompt)}
             />
           )}
 

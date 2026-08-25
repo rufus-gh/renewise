@@ -9,26 +9,39 @@ const LINKS = [
   { href: '#capabilities', label: 'What it does' },
 ]
 
+export interface AuthUser {
+  name: string
+  email: string
+}
+
 interface Props {
   ready: boolean
+  user: AuthUser | null
   onStart: () => void
+  onOpenLogin: () => void
+  onOpenDashboard: () => void
+  onLogout: () => void
 }
 
 /**
- * Sparse by design: a mark, three anchors, one action. It retreats on
- * downward scroll and returns on upward — velocity-aware, so it never
- * flickers during a scrub.
+ * Nav with section links, demo login trigger, and direct dashboard access.
  */
-export function Nav({ ready, onStart }: Props) {
+export function Nav({
+  ready,
+  user,
+  onStart,
+  onOpenLogin,
+  onOpenDashboard,
+  onLogout,
+}: Props) {
   const root = useRef<HTMLElement>(null)
   const [open, setOpen] = useState(false)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
 
   useEffect(() => {
     if (!ready || !root.current) return
     const el = root.current
 
-    // Reduced motion still needs a visible, usable header — only the
-    // entrance and the hide-on-scroll behaviour are dropped.
     if (prefersReducedMotion()) {
       gsap.set(el, { yPercent: 0, opacity: 1 })
       return
@@ -72,7 +85,72 @@ export function Nav({ ready, onStart }: Props) {
         </nav>
 
         <div className="nav__right">
-          <span className="nav__meta mono">AU · RESIDENTIAL</span>
+          {user ? (
+            <div className="nav__user-wrap">
+              <button
+                type="button"
+                className="nav__dash-btn mono"
+                onClick={onOpenDashboard}
+                data-cursor="explore"
+              >
+                ⚡ Live Dashboard
+              </button>
+              <button
+                type="button"
+                className="nav__user-pill mono"
+                onClick={() => setUserMenuOpen((v) => !v)}
+                data-cursor="explore"
+              >
+                <span className="nav__user-dot" />
+                <span>{user.name}</span>
+              </button>
+              {userMenuOpen && (
+                <div className="nav__user-menu">
+                  <p className="nav__user-email mono">{user.email}</p>
+                  <button
+                    type="button"
+                    className="nav__menu-item"
+                    onClick={() => {
+                      setUserMenuOpen(false)
+                      onOpenDashboard()
+                    }}
+                  >
+                    View Account &amp; Dashboard
+                  </button>
+                  <button
+                    type="button"
+                    className="nav__menu-item"
+                    onClick={() => {
+                      setUserMenuOpen(false)
+                      onStart()
+                    }}
+                  >
+                    Run New Comparison
+                  </button>
+                  <button
+                    type="button"
+                    className="nav__menu-item nav__menu-item--logout"
+                    onClick={() => {
+                      setUserMenuOpen(false)
+                      onLogout()
+                    }}
+                  >
+                    Log Out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="nav__signin-btn mono"
+              onClick={onOpenLogin}
+              data-cursor="explore"
+            >
+              Sign In
+            </button>
+          )}
+
           <MagneticButton variant="solid" onClick={onStart} pull={10} cursor="open">
             Start now
           </MagneticButton>
@@ -95,6 +173,35 @@ export function Nav({ ready, onStart }: Props) {
             {l.label}
           </a>
         ))}
+        {user ? (
+          <>
+            <button
+              onClick={() => {
+                setOpen(false)
+                onOpenDashboard()
+              }}
+            >
+              Live Dashboard ({user.name})
+            </button>
+            <button
+              onClick={() => {
+                setOpen(false)
+                onLogout()
+              }}
+            >
+              Log Out
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={() => {
+              setOpen(false)
+              onOpenLogin()
+            }}
+          >
+            Sign In (Demo)
+          </button>
+        )}
         <button
           onClick={() => {
             setOpen(false)

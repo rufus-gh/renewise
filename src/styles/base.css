@@ -26,11 +26,10 @@ body {
   font-synthesis-weight: none;
 }
 
-/* The custom cursor replaces the native one only where we've drawn it */
-body.has-cursor,
-body.has-cursor a,
-body.has-cursor button {
-  cursor: none;
+button,
+a,
+[role="button"] {
+  cursor: pointer;
 }
 
 h1,

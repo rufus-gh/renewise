@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { gsap, EASE, shouldAnimate } from '../../lib/gsap'
 import { useGsap } from '../../hooks/useGsap'
 import { RETAILER_NAME, ZONES } from '../../data/market'
@@ -41,9 +40,6 @@ export function StepDashboard({
   onChange,
   onExit,
 }: Props) {
-  const [promo, setPromo] = useState('')
-  const [promoState, setPromoState] = useState<'idle' | 'ok' | 'bad'>('idle')
-
   const ends = benefitEnds(quote.plan.benefitMonths)
   const days = ends
     ? Math.max(Math.round((ends.getTime() - Date.now()) / 86_400_000), 0)
@@ -79,11 +75,6 @@ export function StepDashboard({
       )
     }
   })
-
-  const redeem = () => {
-    const code = promo.trim().toUpperCase()
-    setPromoState(code === 'JUDGES2026' || code === 'RENEW12' ? 'ok' : 'bad')
-  }
 
   return (
     <div ref={scope} className="dash">
@@ -251,36 +242,9 @@ export function StepDashboard({
             <span className="mono">per month · first 30 days free</span>
           </p>
           <p className="dash__note">
-            The comparison was free. The monitoring is what you are paying for —
-            and it costs about one percent of what it saves.
+            The comparison is always free. The ongoing monitoring ensures you never
+            roll onto an expired rate without a seamless switch ready.
           </p>
-          <div className="dash__promo">
-            <label htmlFor="promo" className="sr">
-              Promo code
-            </label>
-            <input
-              id="promo"
-              value={promo}
-              onChange={(e) => {
-                setPromo(e.target.value)
-                setPromoState('idle')
-              }}
-              placeholder="Promo code"
-              className="dash__promoin"
-              autoComplete="off"
-            />
-            <button type="button" onClick={redeem} data-cursor="explore">
-              Redeem
-            </button>
-          </div>
-          {promoState === 'ok' && (
-            <p className="dash__promook mono">Applied · 12 months free</p>
-          )}
-          {promoState === 'bad' && (
-            <p className="dash__promobad mono">
-              That code isn’t recognised. Check it and try again.
-            </p>
-          )}
         </section>
       </div>
     </div>

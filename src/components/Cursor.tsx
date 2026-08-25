@@ -46,10 +46,8 @@ export function Cursor() {
     const r = ring.current
     if (!enabled || !d || !r) return
 
-    const xTo = gsap.quickTo(d, 'x', { duration: 0.08, ease: 'none' })
-    const yTo = gsap.quickTo(d, 'y', { duration: 0.08, ease: 'none' })
-    const rxTo = gsap.quickTo(r, 'x', { duration: 0.42, ease: 'power3' })
-    const ryTo = gsap.quickTo(r, 'y', { duration: 0.42, ease: 'power3' })
+    const rxTo = gsap.quickTo(r, 'x', { duration: 0.12, ease: 'power2.out' })
+    const ryTo = gsap.quickTo(r, 'y', { duration: 0.12, ease: 'power2.out' })
 
     // Hide the native cursor only once ours is actually wired up, so a
     // failure here can never leave the page with no cursor at all.
@@ -59,19 +57,25 @@ export function Cursor() {
     const onMove = (e: PointerEvent) => {
       if (!seen) {
         seen = true
-        // Jump to the pointer and show it in the same frame. Showing is
-        // a set, never a tween: a tween needs rAF, and a cursor that
-        // depends on an animation to exist is a cursor that sometimes
-        // doesn't.
         gsap.set([d, r], { x: e.clientX, y: e.clientY, autoAlpha: 1 })
+      } else {
+        // Dot tracks immediately with zero lag so the mouse feels crisp and accurate
+        gsap.set(d, { x: e.clientX, y: e.clientY })
       }
-      xTo(e.clientX)
-      yTo(e.clientY)
       rxTo(e.clientX)
       ryTo(e.clientY)
 
-      const hit = (e.target as HTMLElement)?.closest<HTMLElement>('[data-cursor]')
-      const next = (hit?.dataset.cursor ?? '') as CursorState
+      const target = e.target as HTMLElement | null
+      const hit = target?.closest<HTMLElement>('[data-cursor]')
+      const isInteractive = target?.closest('button, a, input, select, textarea, [role="button"]')
+      
+      let next: CursorState = ''
+      if (hit?.dataset.cursor) {
+        next = hit.dataset.cursor as CursorState
+      } else if (isInteractive) {
+        next = 'explore'
+      }
+
       setState((prev) => (prev === next ? prev : next))
       if (label.current) label.current.textContent = hit?.dataset.cursorLabel ?? ''
     }

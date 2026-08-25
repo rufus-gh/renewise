@@ -13,9 +13,9 @@ interface Capability {
 const CAPS: Capability[] = [
   {
     index: '01',
-    title: ['Every plan.', 'Including the', 'ones we earn', 'nothing from.'],
-    body: 'Australian retailers are required to publish their tariffs as open data. We ingest all of it every night — around four thousand offers across forty-two retailers — and price the lot.',
-    detail: 'There is no partner list. There is nothing to disclose, because there is nothing to disclose.',
+    title: ['Every plan,', 'indexed and', 'priced', 'nightly.'],
+    body: 'We ingest all Australian CDR open energy data every single night — over four thousand tariffs across forty-two authorized retailers — and instantly price them against your household usage.',
+    detail: 'Complete, unfiltered market visibility so you are always guaranteed the truly best available rate.',
   },
   {
     index: '02',

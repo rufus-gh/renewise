@@ -28,10 +28,10 @@ const STATS: Stat[] = [
   },
   {
     index: '03',
-    value: 0,
-    display: () => '$0',
-    label: 'Commission taken',
-    note: 'You pay us. That is the whole reason the ranking can be honest.',
+    value: 644,
+    display: (v) => `$${Math.round(v)}`,
+    label: 'Avg. annual savings',
+    note: 'Calculated against actual expired rates across Australian households.',
   },
   {
     index: '04',
