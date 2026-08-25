@@ -34,14 +34,22 @@
   --g-panel: #DCEBDE;
   --g-plate: #D0E3D3;
 
-  /* Ink — dark forest-based text, readable on the light ground scale */
-  --ink:   #24392A;
-  --ink-2: #4A6B4F;
-  --ink-3: #6C8F70;
-  --ink-4: #8FAE92;
+  /* Ink — dark forest-based text, readable on the light ground scale.
+     All four steps verified >=4.5:1 against every ground surface,
+     including the deepest (--g-plate). */
+  --ink:   #16241A;
+  --ink-2: #2C4731;
+  --ink-3: #3F6345;
+  --ink-4: #456B4B;
 
-  /* Signal / CTA — teal (#64C7A9), unchanged: reads well on light or dark */
+  /* Signal / CTA — teal (#64C7A9) stays vivid for fills, badges, and
+     progress/wash backgrounds. On the light ground, raw teal only hits
+     ~1.9:1 as foreground content (text/icons/borders), which fails
+     WCAG AA — so --sig-ink is a darkened variant (>=4.5:1 on every
+     surface) for anywhere teal is used as text, an icon, or a border.
+     Use --sig for backgrounds/fills; use --sig-ink for foreground. */
   --sig:       #64C7A9;
+  --sig-ink:   #1F6552;
   --sig-field: #64C7A9;
   --sig-dim:   #4EAE92;
   --sig-wash:  rgba(100, 199, 169, 0.15);
