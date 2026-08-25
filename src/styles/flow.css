@@ -1964,7 +1964,7 @@
 
 /* ── Results: Savings Reveal Banner ─────────────────────────── */
 .res__reveal {
-  background: linear-gradient(135deg, var(--g-plate) 0%, #1E3F26 100%);
+  background: linear-gradient(135deg, var(--g-plate) 0%, var(--g-lift) 100%);
   border: 1px solid var(--sig-line);
   border-radius: 10px;
   padding: clamp(28px, 4vw, 48px);
