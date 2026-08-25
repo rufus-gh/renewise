@@ -79,7 +79,7 @@
   position: fixed;
   inset: 0;
   z-index: 400;
-  background: var(--g-void);
+  background: var(--g-base);
   display: grid;
   align-content: center;
   clip-path: inset(0% 0% 0% 0%);
@@ -147,7 +147,7 @@
   z-index: 120;
   transform: translateY(-130%);
   opacity: 0;
-  background: linear-gradient(to bottom, rgba(6, 8, 7, 0.86), rgba(6, 8, 7, 0));
+  background: linear-gradient(to bottom, rgba(245, 247, 245, 0.9), rgba(245, 247, 245, 0));
   backdrop-filter: blur(3px);
 }
 .nav__bar {
@@ -655,7 +655,7 @@
 
 /* ── Signature scene ─────────────────────────────────────────── */
 .sig {
-  background: var(--g-void);
+  background: var(--g-base);
 }
 .sig__stage {
   min-height: 100svh;
@@ -934,7 +934,7 @@
 
 /* ── Philosophy ──────────────────────────────────────────────── */
 .phil {
-  background: var(--g-void);
+  background: var(--g-base);
   padding-block: clamp(150px, 30vh, 320px);
 }
 .phil__inner {
@@ -986,10 +986,10 @@
 .cta__side p {
   max-width: 40ch;
   font-size: 16px;
-  color: rgba(6, 8, 7, 0.78);
+  color: rgba(43, 73, 48, 0.78);
 }
 .cta__fine {
-  color: rgba(6, 8, 7, 0.62);
+  color: rgba(43, 73, 48, 0.62);
 }
 .cta .mbtn--solid {
   background: var(--g-void);
@@ -997,12 +997,12 @@
   padding: 18px 34px;
 }
 .cta .mbtn--solid .mbtn__sweep {
-  background: #101413;
+  background: var(--g-void);
 }
 
 /* ── Footer ──────────────────────────────────────────────────── */
 .foot {
-  background: var(--g-void);
+  background: var(--g-base);
   padding-block: clamp(70px, 10vh, 120px) 30px;
 }
 .foot__inner {
@@ -1107,7 +1107,7 @@
     display: grid;
     gap: 4px;
     padding: 8px var(--gut) 26px;
-    background: var(--g-void);
+    background: var(--g-base);
     border-bottom: 1px solid var(--line);
   }
   .nav__sheet[hidden] {
