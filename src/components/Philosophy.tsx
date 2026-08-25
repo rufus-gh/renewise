@@ -26,20 +26,20 @@ export function Philosophy() {
   return (
     <section ref={scope} className="phil">
       <div className="shell phil__inner">
-        <p className="phil__eyebrow mono">Position</p>
+        <p className="phil__eyebrow mono">The Advantage</p>
 
         <SplitLines
           as="h2"
           className="phil__h display"
-          lines={['We are paid', 'by you.', 'Everything else', 'follows from that.']}
+          lines={['The best rate,', 'always.', 'Without having', 'to check.']}
           stagger={0.11}
         />
 
         <p className="phil__b">
-          Every comparison service in this country is paid by the retailers it
-          recommends. One of them was fined $8.5&nbsp;million for letting that
-          shape the ranking. We took the other option: a few dollars a month from
-          you, and nothing at all from anyone else.
+          Australian households overpay by hundreds of dollars each year when initial
+          discounts quietly lapse. Renewise continuously monitors your plan, calculates
+          every offer on the market against your real consumption profile, and switches you
+          before higher rates kick in.
         </p>
       </div>
     </section>

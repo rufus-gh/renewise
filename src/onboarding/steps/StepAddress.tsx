@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
-import { LOCALITIES, ZONES, type Locality } from '../../data/market'
+import { useEffect, useState } from 'react'
+import { ZONES, type Locality } from '../../data/market'
+import { searchLocalities } from '../../data/postcodes'
 import { StepFrame } from '../ui'
 
 interface Props {
@@ -8,20 +9,28 @@ interface Props {
 }
 
 /**
- * One field. The job of this screen is not to capture an address — it
- * is to resolve the distribution zone, which decides which plans
- * legally exist for this household.
+ * One field. Resolves the distribution zone across all Australian
+ * postcodes and suburbs via the open dataset index.
  */
 export function StepAddress({ value, onPick }: Props) {
   const [q, setQ] = useState(value ? `${value.suburb} ${value.postcode}` : '')
+  const [matches, setMatches] = useState<Locality[]>([])
 
-  const matches = useMemo(() => {
-    const term = q.trim().toLowerCase()
-    if (term.length < 2) return []
-    return LOCALITIES.filter(
-      (l) =>
-        l.suburb.toLowerCase().includes(term) || l.postcode.startsWith(term),
-    ).slice(0, 6)
+  useEffect(() => {
+    let active = true
+    const term = q.trim()
+    if (term.length < 2) {
+      setMatches([])
+      return
+    }
+
+    searchLocalities(term, 8).then((res) => {
+      if (active) setMatches(res)
+    })
+
+    return () => {
+      active = false
+    }
   }, [q])
 
   return (

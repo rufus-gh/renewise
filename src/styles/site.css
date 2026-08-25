@@ -2,78 +2,7 @@
    Marketing site
    ────────────────────────────────────────────────────────────── */
 
-/* ── Cursor ──────────────────────────────────────────────────── */
-.cursor {
-  position: fixed;
-  inset: 0;
-  /* Above the preloader too — the native cursor is already hidden by
-     then, so ours has to be the one thing nothing can cover. */
-  z-index: 500;
-  pointer-events: none;
-}
-.cursor__dot,
-.cursor__ring {
-  position: absolute;
-  top: 0;
-  left: 0;
-  will-change: transform;
-  /* Revealed on the first pointer move, once it has a real position. */
-  opacity: 0;
-  visibility: hidden;
-}
-.cursor__dot {
-  width: 5px;
-  height: 5px;
-  margin: -2.5px 0 0 -2.5px;
-  background: var(--sig);
-  border-radius: 50%;
-  transition: width 0.2s var(--e-ui), height 0.2s var(--e-ui), margin 0.2s var(--e-ui);
-}
-.cursor__ring {
-  width: 32px;
-  height: 32px;
-  margin: -16px 0 0 -16px;
-  border: 1px solid var(--line-3);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  transition:
-    width 0.34s var(--e-ui),
-    height 0.34s var(--e-ui),
-    margin 0.34s var(--e-ui),
-    border-color 0.34s var(--e-ui),
-    background-color 0.34s var(--e-ui);
-}
-.cursor__label {
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  color: var(--g-void);
-  opacity: 0;
-  transition: opacity 0.2s var(--e-ui);
-  white-space: nowrap;
-}
-.cursor[data-state='explore'] .cursor__ring {
-  width: 46px;
-  height: 46px;
-  margin: -23px 0 0 -23px;
-  border-color: var(--sig-line);
-}
-.cursor[data-state='open'] .cursor__ring {
-  width: 76px;
-  height: 76px;
-  margin: -38px 0 0 -38px;
-  background: var(--sig);
-  border-color: var(--sig);
-}
-.cursor[data-state='open'] .cursor__label {
-  opacity: 1;
-}
-.cursor[data-state='open'] .cursor__dot {
-  width: 0;
-  height: 0;
-  margin: 0;
-}
+
 
 /* ── Magnetic button ─────────────────────────────────────────── */
 .mbtn {
@@ -266,10 +195,259 @@
 .nav__right {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 16px;
+}
+.nav__signin-btn {
+  background: transparent;
+  border: 1px solid var(--line-3);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: all 0.2s var(--e-ui);
+}
+.nav__signin-btn:hover {
+  background: var(--g-lift);
+  color: var(--ink);
+  border-color: var(--sig-line);
+}
+.nav__user-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav__dash-btn {
+  background: var(--sig-wash);
+  border: 1px solid var(--sig-line);
+  color: var(--sig);
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s var(--e-ui);
+}
+.nav__dash-btn:hover {
+  background: var(--sig);
+  color: var(--g-void);
+}
+.nav__user-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--g-lift);
+  border: 1px solid var(--line-2);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s var(--e-ui);
+}
+.nav__user-pill:hover {
+  border-color: var(--line-3);
+}
+.nav__user-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--sig);
+  border-radius: 50%;
+}
+.nav__user-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 220px;
+  background: var(--g-plate);
+  border: 1px solid var(--line-3);
+  border-radius: 6px;
+  padding: 8px;
+  display: grid;
+  gap: 4px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+  z-index: 20;
+}
+.nav__user-email {
+  font-size: 10px;
+  color: var(--ink-4);
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--line);
+}
+.nav__menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  color: var(--ink-2);
+  padding: 8px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s var(--e-ui);
+}
+.nav__menu-item:hover {
+  background: var(--g-lift);
+  color: var(--ink);
+}
+.nav__menu-item--logout {
+  color: var(--warn);
+}
+.nav__menu-item--logout:hover {
+  background: rgba(226, 112, 92, 0.1);
+  color: var(--warn);
 }
 .nav__meta {
   color: var(--ink-4);
+}
+
+/* ── Login Modal ─────────────────────────────────────────────── */
+.login-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+.login-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 12, 11, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.login-modal__dialog {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: var(--g-plate);
+  border: 1px solid var(--line-3);
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  z-index: 1;
+  animation: pmodal-pop 0.28s var(--e-ui);
+}
+.login-modal__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.login-modal__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--sig);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.login-modal__close {
+  background: transparent;
+  border: 1px solid var(--line-2);
+  color: var(--ink-3);
+  font-size: 22px;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s var(--e-ui);
+}
+.login-modal__close:hover {
+  background: var(--g-lift);
+  color: var(--ink);
+}
+.login-modal__form {
+  display: grid;
+  gap: 16px;
+}
+.login-modal__h {
+  font-size: 24px;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.login-modal__sub {
+  font-size: 12px;
+  color: var(--ink-4);
+  margin-top: -6px;
+}
+.login-modal__quick {
+  margin: 6px 0;
+}
+.login-modal__quick-btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--sig-wash);
+  border: 1px dashed var(--sig-line);
+  color: var(--sig);
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s var(--e-ui);
+}
+.login-modal__quick-btn:hover {
+  background: var(--sig);
+  color: var(--g-void);
+}
+.login-modal__fields {
+  display: grid;
+  gap: 14px;
+}
+.login-modal__field {
+  display: grid;
+  gap: 6px;
+}
+.login-modal__field .mono {
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.login-modal__field input {
+  padding: 12px 14px;
+  background: var(--g-lift);
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s var(--e-ui);
+}
+.login-modal__field input:focus {
+  border-color: var(--sig);
+}
+.login-modal__err {
+  font-size: 12px;
+  color: var(--warn);
+  line-height: 1.4;
+}
+.login-modal__actions {
+  display: flex;
+  margin-top: 8px;
+}
+.login-modal__actions .mbtn {
+  width: 100%;
+  justify-content: center;
+}
+.login-modal__hint {
+  font-size: 11px;
+  color: var(--ink-4);
+  text-align: center;
+  margin-top: 4px;
+}
+.login-modal__hint code {
+  color: var(--sig);
 }
 .nav__burger {
   display: none;
